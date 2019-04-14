@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc5141093b3f409d9cf4a37a7983e57e" Name="Diagram1">
+        <EntityTypeShape EntityType="AuthenticationModel.ApplicationUser" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="AuthenticationModel.Designation" Width="1.5" PointX="5.75" PointY="1.25" />
+        <EntityTypeShape EntityType="AuthenticationModel.Employee" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="AuthenticationModel.UserRole" Width="1.5" PointX="0.75" PointY="1.125" />
+        <AssociationConnector Association="AuthenticationModel.FK__UserRolesId__UserType__Id" />
+        <AssociationConnector Association="AuthenticationModel.FK__DesignationId__Designation__Id" />
+        <EntityTypeShape EntityType="AuthenticationModel.Collection" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="AuthenticationModel.Folder" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="AuthenticationModel.Request" Width="1.5" PointX="5.25" PointY="6" />
+        <AssociationConnector Association="AuthenticationModel.FK__CollectionId__Collection__Id" />
+        <AssociationConnector Association="AuthenticationModel.FK__CollectionId__RequestCollection__Id" />
+        <AssociationConnector Association="AuthenticationModel.FK__FolderId__Folder__Id" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,364 @@
+﻿USE [master]
+GO
+/****** Object:  Database [TokenBasedAuthenticationDB]    Script Date: 14-04-2019 20:41:36 ******/
+CREATE DATABASE [TokenBasedAuthenticationDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'TokenBasedAuthenticationDB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\TokenBasedAuthenticationDB.mdf' , SIZE = 3136KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'TokenBasedAuthenticationDB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\TokenBasedAuthenticationDB_log.ldf' , SIZE = 832KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET COMPATIBILITY_LEVEL = 110
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [TokenBasedAuthenticationDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+USE [TokenBasedAuthenticationDB]
+GO
+/****** Object:  Table [dbo].[ApplicationUsers]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[ApplicationUsers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[EmailID] [varchar](50) NULL,
+	[UserName] [varchar](50) NULL,
+	[Password] [varchar](50) NULL,
+	[RoleId] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [bigint] NULL,
+ CONSTRAINT [PK_ApplicationUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Collection]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Collection](
+	[Id] [uniqueidentifier] NOT NULL DEFAULT (newid()),
+	[Name] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+	[TimeStamp] [time](7) NULL,
+	[Owner] [int] NULL,
+	[Public] [bit] NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Designations]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Designations](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+	[CreatedBy] [bigint] NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+ CONSTRAINT [PK_Designations] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Employees]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Employees](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[EmloyeeName] [varchar](50) NULL,
+	[Address] [varchar](max) NULL,
+	[Department] [varchar](max) NULL,
+	[Salary] [decimal](10, 2) NULL,
+	[DesignationId] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+ CONSTRAINT [PK_Employees] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Folder]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Folder](
+	[Id] [uniqueidentifier] NOT NULL DEFAULT (newid()),
+	[Name] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+	[Owner] [int] NULL,
+	[CollectionId] [uniqueidentifier] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [bigint] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Requests]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[Requests](
+	[Id] [uniqueidentifier] NOT NULL DEFAULT (newid()),
+	[Headers] [varchar](max) NULL,
+	[Url] [varchar](max) NULL,
+	[PathVariables] [varchar](max) NULL,
+	[Owner] [int] NULL,
+	[PreRequestScript] [varchar](max) NULL,
+	[Method] [varchar](max) NULL,
+	[CollectionId] [uniqueidentifier] NOT NULL,
+	[FolderId] [uniqueidentifier] NOT NULL,
+	[Data] [varchar](max) NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [bigint] NULL,
+	[DataMode] [varchar](max) NULL,
+	[Name] [varchar](max) NULL,
+	[Description] [varchar](max) NULL,
+	[DescriptionFormat] [varchar](max) NULL,
+	[Time] [time](7) NULL,
+	[Version] [varchar](max) NULL,
+	[Responses] [varchar](max) NULL,
+	[Tests] [varchar](max) NULL,
+	[CurrentHelper] [varchar](max) NULL,
+	[HelperAttributes] [varchar](max) NULL,
+	[IsFromCollection] [bit] NULL,
+	[RawModeData] [varchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] Result
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[UserRoles]    Script Date: 14-04-2019 20:41:36 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[UserRoles](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [varchar](50) NULL,
+	[CreatedBy] [bigint] NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[ModifiedBy] [bigint] NULL,
+	[ModifiedOn] [datetime] NULL,
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+ CONSTRAINT [PK_UserRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+SET IDENTITY_INSERT [dbo].[ApplicationUsers] ON 
+
+GO
+INSERT [dbo].[ApplicationUsers] ([Id], [EmailID], [UserName], [Password], [RoleId], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (1, N'brajeshkr18@gmail.com', N'brajesh', N'brajeshkr18@gmail.com', 1, CAST(N'2019-04-14 00:42:07.467' AS DateTime), NULL, NULL, 1, 0, NULL)
+GO
+INSERT [dbo].[ApplicationUsers] ([Id], [EmailID], [UserName], [Password], [RoleId], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (4, N'Test@123.com', N'Test@123.com', N'Test@123.com', 2, CAST(N'2019-04-14 11:01:27.300' AS DateTime), NULL, NULL, 0, 0, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[ApplicationUsers] OFF
+GO
+INSERT [dbo].[Collection] ([Id], [Name], [Description], [TimeStamp], [Owner], [Public], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', N'Collection', N'Collection', NULL, 1, 1, CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL)
+GO
+INSERT [dbo].[Collection] ([Id], [Name], [Description], [TimeStamp], [Owner], [Public], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (N'27fb9343-8720-493e-bcd1-cbc4c3e2b01a', N'Collection', N'Collection', NULL, 1, 1, CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Designations] ON 
+
+GO
+INSERT [dbo].[Designations] ([Id], [Name], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (1, N'Sw Dev', 101, CAST(N'2018-08-06 00:42:07.467' AS DateTime), NULL, NULL, 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Designations] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Employees] ON 
+
+GO
+INSERT [dbo].[Employees] ([Id], [EmloyeeName], [Address], [Department], [Salary], [DesignationId], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (1, N'Test', N'kjhgsdjkh', N'jkhdslkdh', CAST(1.22 AS Decimal(10, 2)), 1, CAST(N'2018-08-06 00:42:07.467' AS DateTime), NULL, NULL, 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Employees] OFF
+GO
+INSERT [dbo].[Folder] ([Id], [Name], [Description], [Owner], [CollectionId], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (N'21f670ab-d229-4971-981a-34c2060895c4', N'Folder', N'dajdgh', 1, N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL)
+GO
+INSERT [dbo].[Folder] ([Id], [Name], [Description], [Owner], [CollectionId], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (N'f27699bf-b2f6-479f-be3b-89d1ff389d11', N'Folder', N'dajdgh', 1, N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL)
+GO
+INSERT [dbo].[Folder] ([Id], [Name], [Description], [Owner], [CollectionId], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy]) VALUES (N'75818b8c-175f-4aac-a457-8ee0a2e8fe54', N'Folder', N'dajdgh', 1, N'27fb9343-8720-493e-bcd1-cbc4c3e2b01a', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL)
+GO
+INSERT [dbo].[Requests] ([Id], [Headers], [Url], [PathVariables], [Owner], [PreRequestScript], [Method], [CollectionId], [FolderId], [Data], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy], [DataMode], [Name], [Description], [DescriptionFormat], [Time], [Version], [Responses], [Tests], [CurrentHelper], [HelperAttributes], [IsFromCollection], [RawModeData]) VALUES (N'1a0e98b0-5cdc-4921-b07c-112a73b81f50', N'dsfdf', N'sdfsdfs', N'sfsdfs', 1, N'fdfds', N'gdfgd', N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', N'f27699bf-b2f6-479f-be3b-89d1ff389d11', N'sds', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'raw', N'Enterprises Index with Filter', NULL, N'html', NULL, N'1', NULL, N'if (responseCode.code === 200)\n{\n    postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(''access-token''));\n    postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(''client''));\n    postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(''uid''));\n}\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\nif (''id'' in responseJSON)\n{\n    postman.setEnvironmentVariable((\"user_id\"), responseJSON.id);\n}\n\ntests[\"Response time is less than 200ms\"] = responseTime < 200;', N'normal', NULL, 1, NULL)
+GO
+INSERT [dbo].[Requests] ([Id], [Headers], [Url], [PathVariables], [Owner], [PreRequestScript], [Method], [CollectionId], [FolderId], [Data], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy], [DataMode], [Name], [Description], [DescriptionFormat], [Time], [Version], [Responses], [Tests], [CurrentHelper], [HelperAttributes], [IsFromCollection], [RawModeData]) VALUES (N'152c670e-a1b3-47e1-b2df-5590670813ce', N'dsfdf', N'sdfsdfs', N'sfsdfs', 1, N'fdfds', N'gdfgd', N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', N'f27699bf-b2f6-479f-be3b-89d1ff389d11', N'sds', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'raw', N'Show', NULL, N'Json', NULL, N'2', NULL, N'if (responseCode.code === 200)\n{\n    postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(''access-token''));\n    postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(''client''));\n    postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(''uid''));\n}\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\nif (''id'' in responseJSON)\n{\n    postman.setEnvironmentVariable((\"user_id\"), responseJSON.id);\n}\n\ntests[\"Response time is less than 200ms\"] = responseTime < 200;', N'normal', NULL, 0, N'{\n  \"email\" : \"testeapple@ioasys.com.br\",\n  \"password\" : \"12341234\"\n}')
+GO
+INSERT [dbo].[Requests] ([Id], [Headers], [Url], [PathVariables], [Owner], [PreRequestScript], [Method], [CollectionId], [FolderId], [Data], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy], [DataMode], [Name], [Description], [DescriptionFormat], [Time], [Version], [Responses], [Tests], [CurrentHelper], [HelperAttributes], [IsFromCollection], [RawModeData]) VALUES (N'7a445c94-0188-4d73-8352-768cc5b14b8e', N'dsfdf', N'sdfsdfs', N'sfsdfs', 1, N'fdfds', N'gdfgd', N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', N'f27699bf-b2f6-479f-be3b-89d1ff389d11', N'sds', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'raw', N'Enterprises Index with Filter', NULL, N'html', NULL, N'1', NULL, N'if (responseCode.code === 200)\n{\n    postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(''access-token''));\n    postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(''client''));\n    postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(''uid''));\n}\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\nif (''id'' in responseJSON)\n{\n    postman.setEnvironmentVariable((\"user_id\"), responseJSON.id);\n}\n\ntests[\"Response time is less than 200ms\"] = responseTime < 200;', N'normal', NULL, 1, N'{\n  \"email\" : \"testeapple@ioasys.com.br\",\n  \"password\" : \"12341234\"\n}')
+GO
+INSERT [dbo].[Requests] ([Id], [Headers], [Url], [PathVariables], [Owner], [PreRequestScript], [Method], [CollectionId], [FolderId], [Data], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy], [DataMode], [Name], [Description], [DescriptionFormat], [Time], [Version], [Responses], [Tests], [CurrentHelper], [HelperAttributes], [IsFromCollection], [RawModeData]) VALUES (N'f7e5fc67-9682-4f9c-8f5f-bf1040e438e3', N'dsfdf', N'sdfsdfs', N'sfsdfs', 1, N'fdfds', N'gdfgd', N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', N'f27699bf-b2f6-479f-be3b-89d1ff389d11', N'sds', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'raw', N'Enterprises Index with Filter', NULL, N'Json', NULL, N'3', NULL, N'if (responseCode.code === 200)\n{\n    postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(''access-token''));\n    postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(''client''));\n    postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(''uid''));\n}\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\nif (''id'' in responseJSON)\n{\n    postman.setEnvironmentVariable((\"user_id\"), responseJSON.id);\n}\n\ntests[\"Response time is less than 200ms\"] = responseTime < 200;', N'normal', NULL, 0, N'{\n  \"email\" : \"testeapple@ioasys.com.br\",\n  \"password\" : \"12341234\"\n}')
+GO
+INSERT [dbo].[Requests] ([Id], [Headers], [Url], [PathVariables], [Owner], [PreRequestScript], [Method], [CollectionId], [FolderId], [Data], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [CreatedBy], [DataMode], [Name], [Description], [DescriptionFormat], [Time], [Version], [Responses], [Tests], [CurrentHelper], [HelperAttributes], [IsFromCollection], [RawModeData]) VALUES (N'3ac1ed15-9691-41d1-a153-e5438ddbea6f', N'dsfdf', N'sdfsdfs', N'sfsdfs', 1, N'fdfds', N'gdfgd', N'4ecf71d2-8f3a-4a4f-9df8-2c75a0b97535', N'f27699bf-b2f6-479f-be3b-89d1ff389d11', N'sds', CAST(N'2019-04-14 16:39:00.000' AS DateTime), NULL, NULL, 1, 0, NULL, N'raw', N'Show', NULL, N'html', NULL, N'1', NULL, N'if (responseCode.code === 200)\n{\n    postman.setEnvironmentVariable(\"access-token\", postman.getResponseHeader(''access-token''));\n    postman.setEnvironmentVariable(\"client\", postman.getResponseHeader(''client''));\n    postman.setEnvironmentVariable(\"uid\", postman.getResponseHeader(''uid''));\n}\n\nvar responseJSON;\n\ntry { responseJSON = JSON.parse(responseBody); }\ncatch (e) { }\n\n\nif (''id'' in responseJSON)\n{\n    postman.setEnvironmentVariable((\"user_id\"), responseJSON.id);\n}\n\ntests[\"Response time is less than 200ms\"] = responseTime < 200;', NULL, NULL, 1, N'{\n  \"email\" : \"testeapple@ioasys.com.br\",\n  \"password\" : \"12341234\"\n}')
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] ON 
+
+GO
+INSERT [dbo].[UserRoles] ([Id], [RoleName], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (1, N'Admin', 101, CAST(N'2019-04-14 00:42:07.467' AS DateTime), NULL, CAST(N'2019-04-14 00:42:07.467' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[UserRoles] ([Id], [RoleName], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (2, N'Employee', 101, CAST(N'2019-04-14 00:42:07.467' AS DateTime), NULL, CAST(N'2019-04-14 00:42:07.467' AS DateTime), 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[UserRoles] OFF
+GO
+ALTER TABLE [dbo].[ApplicationUsers]  WITH CHECK ADD  CONSTRAINT [FK__UserRolesId__UserType__Id] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[UserRoles] ([Id])
+GO
+ALTER TABLE [dbo].[ApplicationUsers] CHECK CONSTRAINT [FK__UserRolesId__UserType__Id]
+GO
+ALTER TABLE [dbo].[Employees]  WITH CHECK ADD  CONSTRAINT [FK__DesignationId__Designation__Id] FOREIGN KEY([DesignationId])
+REFERENCES [dbo].[Designations] ([Id])
+GO
+ALTER TABLE [dbo].[Employees] CHECK CONSTRAINT [FK__DesignationId__Designation__Id]
+GO
+ALTER TABLE [dbo].[Folder]  WITH CHECK ADD  CONSTRAINT [FK__CollectionId__Collection__Id] FOREIGN KEY([CollectionId])
+REFERENCES [dbo].[Collection] ([Id])
+GO
+ALTER TABLE [dbo].[Folder] CHECK CONSTRAINT [FK__CollectionId__Collection__Id]
+GO
+ALTER TABLE [dbo].[Requests]  WITH CHECK ADD  CONSTRAINT [FK__CollectionId__RequestCollection__Id] FOREIGN KEY([CollectionId])
+REFERENCES [dbo].[Collection] ([Id])
+GO
+ALTER TABLE [dbo].[Requests] CHECK CONSTRAINT [FK__CollectionId__RequestCollection__Id]
+GO
+ALTER TABLE [dbo].[Requests]  WITH CHECK ADD  CONSTRAINT [FK__FolderId__Folder__Id] FOREIGN KEY([FolderId])
+REFERENCES [dbo].[Folder] ([Id])
+GO
+ALTER TABLE [dbo].[Requests] CHECK CONSTRAINT [FK__FolderId__Folder__Id]
+GO
+USE [master]
+GO
+ALTER DATABASE [TokenBasedAuthenticationDB] SET  READ_WRITE 
+GO
