@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "661b5823-13a5-4e11-b48d-fa8b791b1c3f",
+		"name": "New",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:54368/api/Authentication/UserOrder",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer nIdYDzYX70b2DwwhOQ1R5-x0T8JdOmq9Zh6IvgGX9-rQrgphO4pQsrL4IjBJmwh7A-cUGixJ0sL83OkUGRH3DX4YwlPpySyeBee4GSuJobLJH2RpS2VC3SzA-i3TaQ8o1Dh7dX-k_kisxzOEmyabeuZ_sS7n7K1cn1aTLub6UXkHEOsDj4gYE4UZLj8B09cQP4oIZEacKgs2d6pWyd7edgmbw-wYtEp533eKCM_V2H2qKljpX1O3XPjt4TwYfM73jDygJYiSJlDWbU77OZhMvvhd3qkGNJ9IZhZbWVCzVNn71Q9r4LpOi0-VAMNErVfj"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:54368/api/Authentication/AuthenticatedUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54368",
+					"path": [
+						"api",
+						"Authentication",
+						"AuthenticatedUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:54368/token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "brajesh",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "brajeshkr18@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:54368/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54368",
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:54368/api/Authentication/PostUserData",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer QaEAOgmnKSr7tHnjmDuGmdYcdKJfle2uzXmBnPoYU0s8FsyqUwTLzTIyzxtITFvX_JBPwWiMDZxtGryIApLfLvrDA0WjlR1xmYkcfWpgm4-5dd61OMNk82JUXLZNbaW6RA7OiIXWs1JVVWkEEtF0tgMRyPP63hxeEfhh5Ed1HLdXPeKrmpp68rbixnno14sHyl9U9y4tzubVWOllMBLuPne_NHeTOnZY8Q7D-aLvb84pb59LiT7KGBMV8dMn4Z0vBqDrxM6h76oQB94hr8m3dqh6yrNGGkFd_T38T174RJEpnXlHeEp0fqNZTMioOg1Oq86wj5KsI3Q77RPdha7O-Q",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "EmailID",
+							"value": "Test1@123.com",
+							"type": "text"
+						},
+						{
+							"key": "Password",
+							"value": "Test@123.com",
+							"type": "text"
+						},
+						{
+							"key": "UserName",
+							"value": "Test1@123.com",
+							"type": "text"
+						},
+						{
+							"key": "RoleId",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:54368/api/Authentication/PostUserData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "54368",
+					"path": [
+						"api",
+						"Authentication",
+						"PostUserData"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
