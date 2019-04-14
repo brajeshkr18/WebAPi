@@ -10,4 +10,4 @@
 It will provide AuthToken .
 This AuthToken Need to used on every request on web api 
 
-Added postman collection  
+Added postman collection  New.postman_collection.json can used to import on postman
